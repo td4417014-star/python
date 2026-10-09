@@ -1,0 +1,20 @@
+{
+  "InpGZ_ZscorePeriod":   {"type": "int",   "low": 10,   "high": 30,   "step": 4},
+  "InpGZ_ZscoreBuyTh":    {"type": "float", "low": -1.0, "high": -0.2, "step": 0.2},
+  "InpGZ_ZscoreSellTh":   {"type": "float", "low": 0.2,  "high": 1.0,  "step": 0.2},
+  "InpGZ_GridChainSize":  {"type": "int",   "low": 3,    "high": 9,    "step": 2},
+  "InpGZ_VolStepMult":    {"type": "float", "low": 0.5,  "high": 2.0,  "step": 0.25},
+  "InpGZ_VolGapMult":     {"type": "float", "low": 1.5,  "high": 4.0,  "step": 0.5},
+  "InpGZ_MaxPositions":   {"type": "int",   "low": 3,    "high": 9,    "step": 2},
+  "InpGZ_MartingaleMult": {"type": "float", "low": 1.0,  "high": 2.5,  "step": 0.25},
+  "InpGZ_CapAction":      {"type": "enum",  "values": [0, 1]},
+  "InpGZ_TrailFirst":     {"type": "enum",  "values": [0, 1, 2, 3, 4, 5]},
+  "InpGZ_TrailGrid":      {"type": "enum",  "values": [0, 1, 2, 3, 4, 5]},
+  "InpLV_ATRPeriod":      {"type": "int",   "low": 7,    "high": 28,   "step": 7},
+  "InpLV_RiskPercent":    {"type": "float", "low": 0.5,  "high": 2.0,  "step": 0.5},
+  "InpLV_UseStaticATR":   {"type": "bool"},
+  "InpLV_RecoveryGapPct": {"type": "float", "low": 0.0,  "high": 60.0, "step": 20.0},
+  "InpLV_EnableTrail":    {"type": "bool"},
+  "InpLV_EnableFirstBE":  {"type": "bool"},
+  "InpLV_BEThresholdPct": {"type": "float", "low": 20.0, "high": 60.0, "step": 10.0}
+}

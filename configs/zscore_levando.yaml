@@ -1,0 +1,54 @@
+# Everything for the Zscore and Levando MIX study in one place.
+# Any value can be overridden on the command line, e.g.
+#   python -m ubt full --config configs/zscore_levando.yaml --from 2023-01-01 --to 2024-01-01 --n 300
+
+strategy: strategies/zscore_levando_mix.py:ZscoreLevandoMix
+
+backtest:
+  data_root: data              # where `python -m ubt download` saved the data
+  symbol: BTCUSD               # chart symbol (use your broker's name, e.g. BTCUSDm)
+  timeframe: M5                # chart timeframe (Engine A uses its own InpGZ_Timeframe)
+  start: "2024-01-01"
+  end: "2024-07-01"
+  model: m1_ohlc               # real | every_tick | m1_ohlc  (m1_ohlc = fast, for optimising)
+  deposit: 10000
+  leverage: 100                # null = leverage of the downloaded account
+  commission_per_lot: 0.0      # per lot per side, deposit currency
+  slippage_points: 0
+  spread_multiplier: 1.0
+  warmup_days: 30              # history loaded before `start` for indicators (like the MT5 tester)
+  gap_fill: worse              # SL/stop orders that gap fill at the worse tick price
+
+inputs: {}                     # fixed input overrides, e.g. {InpLV_Enable: false}
+# set: my_settings.set         # or load input values from an MT5 .set file
+
+space: configs/zscore_levando_space.json     # or "auto" = +-50% around the EA defaults
+objective: ontester            # the EA's own OnTester (profit / relative equity DD); any metric or expression
+criteria:                      # what counts as a "surviving" parameter set
+  min_trades: 30
+  min_profit_factor: 1.0
+  max_dd_pct: 35
+  require_no_stopout: true
+
+optimize:
+  method: lhs                  # grid | random | lhs | genetic
+  n: 200
+
+sensitivity:
+  tests: [oat, neighborhood, costs, periods]
+  pcts: [5, 10, 20]            # joint perturbation levels for the neighbourhood survival test
+  n_perturb: 40
+  max_points: 9
+  periods: 4
+
+walkforward:
+  enabled: false
+  is_days: 90
+  oos_days: 30
+  method: lhs
+  n: 40
+  pick: robust
+  anchored: false
+
+workers: 0                     # 0 = all CPU cores - 1
+out: results/zscore_levando
