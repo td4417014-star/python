@@ -151,7 +151,8 @@ class AccountSpec:
     leverage: int = 100
     margin_mode: int = C.ACCOUNT_MARGIN_MODE_RETAIL_HEDGING
     margin_so_call: float = 100.0   # percent
-    margin_so_so: float = 50.0      # percent
+    margin_so_so: float = 50.0      # percent (or money when margin_so_mode == 1)
+    margin_so_mode: int = 0         # ACCOUNT_STOPOUT_MODE_PERCENT = 0, _MONEY = 1
     login: int = 0
     server: str = "Backtest"
     company: str = "UBT"

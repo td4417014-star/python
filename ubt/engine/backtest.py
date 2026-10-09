@@ -113,6 +113,7 @@ def _account(store: DataStore, symbol: str, cfg: BacktestConfig) -> AccountSpec:
     acc.leverage = int(cfg.leverage or info.get("leverage") or 100)
     acc.margin_so_so = float(cfg.margin_so_so if cfg.margin_so_so is not None else info.get("margin_so_so", 50.0))
     acc.margin_so_call = float(cfg.margin_so_call if cfg.margin_so_call is not None else info.get("margin_so_call", 100.0))
+    acc.margin_so_mode = int(info.get("margin_so_mode") or 0) if cfg.margin_so_so is None else 0
     return acc
 
 

@@ -296,7 +296,9 @@ class Broker:
                 ml = eq / self.margin * 100.0
                 if ml < self.min_margin_level:
                     self.min_margin_level = ml
-                if self.stop_out_enabled and ml <= self.account.margin_so_so:
+                so_hit = (eq <= self.account.margin_so_so if self.account.margin_so_mode == 1
+                          else ml <= self.account.margin_so_so)
+                if self.stop_out_enabled and so_hit:
                     self._stop_out()
                     eq = self.equity
         else:
@@ -328,7 +330,9 @@ class Broker:
             eq = self.balance + self.credit + self.floating()
             self.equity = eq
             m = self.calc_margin()
-            if m <= 0 or eq / m * 100.0 > self.account.margin_so_so:
+            level_ok = (eq > self.account.margin_so_so if self.account.margin_so_mode == 1
+                        else m <= 0 or eq / m * 100.0 > self.account.margin_so_so)
+            if m <= 0 or level_ok:
                 break
         # MT5 keeps pending orders on stop-out
 
